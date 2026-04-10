@@ -1,0 +1,34 @@
+tipo: packing_list
+campi:
+  order_ref:
+    sinonimi: ["Order Ref", "Riferimento Ordine", "Rif. Ordine", "ORD", "Order"]
+    tipo: string
+    obbligatorio: false
+  codice_articolo:
+    sinonimi: ["Item Code", "Codice", "Cod. Art.", "ITEM", "Art."]
+    tipo: string
+    obbligatorio: true
+  descrizione:
+    sinonimi: ["Description", "Descrizione", "Desc", "Articolo"]
+    tipo: string
+    obbligatorio: false
+  colli:
+    sinonimi: ["Boxes", "Colli", "N. Colli", "Pezzi", "Qty Boxes"]
+    tipo: integer
+    obbligatorio: false
+  qty_per_collo:
+    sinonimi: ["Qty per Box", "Pz per Collo", "Qty/Box", "Qty per Collo"]
+    tipo: integer
+    obbligatorio: false
+  quantita_totale:
+    sinonimi: ["Total Qty", "Quantità Totale", "Totale Pz", "Total Pieces"]
+    tipo: integer
+    obbligatorio: true
+  peso_kg:
+    sinonimi: ["Weight Kg", "Peso Kg", "Peso", "Weight", "Kg"]
+    tipo: float
+    obbligatorio: false
+metadati_canonici:
+  delivery_note: ["Delivery Note", "Numero DDT", "DDT", "Bolla"]
+  data: ["Date", "Data", "Data Spedizione"]
+  mittente: ["Mittente", "Shipper", "Fornitore"]

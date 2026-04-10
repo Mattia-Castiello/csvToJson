@@ -1,0 +1,56 @@
+TARIFFARIO SPEDIZIONI 2026
+TransLog Express S.p.A.
+Validità: 01/01/2026 - 31/12/2026
+Aggiornamento: Rev. 3 del 15/02/2026
+
+ZONA A - ITALIA NORD
+Peso Min Kg;Peso Max Kg;Standard €;Express €;Same Day €;Supplemento Isole €
+0,5;1,0;4,90;7,50;14,90;2,50
+1,1;3,0;5,90;8,90;16,90;3,00
+3,1;5,0;6,90;10,50;19,90;3,50
+5,1;10,0;8,50;13,90;24,90;4,00
+10,1;20,0;11,90;18,50;32,90;5,50
+20,1;30,0;14,90;22,90;41,90;7,00
+30,1;50,0;19,90;29,90;;8,50
+50,1;100,0;28,90;42,90;;12,00
+100,1;200,0;45,90;68,90;;18,00
+200,1;500,0;A PREVENTIVO;A PREVENTIVO;;A PREVENTIVO
+
+ZONA B - ITALIA CENTRO-SUD
+Peso Min Kg;Peso Max Kg;Standard €;Express €;Same Day €;Supplemento Isole €
+0,5;1,0;5,90;8,90;17,90;3,50
+1,1;3,0;7,20;10,50;19,90;4,00
+3,1;5,0;8,90;12,90;23,90;4,50
+5,1;10,0;10,90;16,50;29,90;5,50
+10,1;20,0;14,50;21,90;38,90;7,00
+20,1;30,0;18,90;27,90;49,90;9,00
+30,1;50,0;24,90;36,90;;11,00
+50,1;100,0;35,90;52,90;;15,00
+100,1;200,0;56,90;84,90;;22,00
+200,1;500,0;A PREVENTIVO;A PREVENTIVO;;A PREVENTIVO
+
+ZONA C - EUROPA
+Nazione;Peso Min Kg;Peso Max Kg;Tariffa Base €;Supplemento Carburante %;Note
+DE;0,5;5,0;12,90;8%;
+DE;5,1;30,0;24,90;8%;
+DE;30,1;100,0;45,90;8%;Franco fabbrica
+FR;0,5;5,0;14,50;10%;
+FR;5,1;30,0;28,90;10%;
+FR;30,1;100,0;52,90;10%;Solo pallet
+ES;0,5;5,0;15,90;12%;
+ES;5,1;30,0;31,90;12%;
+ES;30,1;100,0;58,90;12%;Escluse Canarie e Baleari
+AT;0,5;5,0;11,90;8%;
+AT;5,1;30,0;22,90;8%;
+AT;30,1;100,0;41,90;8%;
+
+SUPPLEMENTI APPLICABILI
+Tipo Supplemento;Importo;Condizione
+Consegna al piano;€ 15,00;Per collo
+Preavviso telefonico;€ 3,50;Per spedizione
+Consegna su appuntamento;€ 8,00;Per spedizione
+Giacenza (dal 4° giorno);€ 5,00;Per giorno per collo
+Ritiro fuori zona;€ 12,00;Per ritiro
+Assicurazione merce;0,5%;Sul valore dichiarato (min € 5,00)
+Contrassegno;€ 6,50;+ 1,5% sull'importo (min € 3,00)
+Merce pericolosa ADR;€ 25,00;Per spedizione

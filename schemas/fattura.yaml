@@ -1,0 +1,34 @@
+tipo: fattura
+campi:
+  codice_articolo:
+    sinonimi: ["Rif.", "Cod. Art.", "Codice", "ITEM", "Art.", "Item Code", "Ref."]
+    tipo: string
+    obbligatorio: true
+  descrizione:
+    sinonimi: ["Articolo", "Descrizione Prodotto", "Descrizione", "Description", "Prodotto", "Desc"]
+    tipo: string
+    obbligatorio: true
+  quantita:
+    sinonimi: ["Qtà", "Quantità", "N.", "Pz"]
+    tipo: integer
+    obbligatorio: false
+  prezzo_listino:
+    sinonimi: ["Prezzo Listino", "Prezzo Unit.", "Prezzo", "List Price", "Price"]
+    tipo: float
+    obbligatorio: false
+  sconto_percentuale:
+    sinonimi: ["Sconto %", "Sconto", "Discount", "Disc. %"]
+    tipo: float
+    obbligatorio: false
+  importo_netto:
+    sinonimi: ["Importo Netto", "Net Price", "Importo", "Prezzo Scontato", "Net Amount"]
+    tipo: float
+    obbligatorio: false
+  note:
+    sinonimi: ["Note", "Notes", "Commento", "Info"]
+    tipo: string
+    obbligatorio: false
+metadati_canonici:
+  fornitore: ["Fornitore", "Supplier", "Mittente"]
+  data_documento: ["Data", "Data Fattura", "Invoice Date"]
+  numero_documento: ["Numero", "Fattura N.", "Invoice No"]

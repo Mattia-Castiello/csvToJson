@@ -1,0 +1,34 @@
+tipo: tariffario
+campi:
+  peso_min_kg:
+    sinonimi: ["Peso Min Kg", "Peso Min", "From Kg", "Da Kg", "Min"]
+    tipo: float
+    obbligatorio: true
+  peso_max_kg:
+    sinonimi: ["Peso Max Kg", "Peso Max", "To Kg", "A Kg", "Max"]
+    tipo: float
+    obbligatorio: true
+  tariffa_standard:
+    sinonimi: ["Standard €", "Standard", "Tariffa Base €", "Tariffa Base", "Base"]
+    tipo: float
+    obbligatorio: false
+  tariffa_express:
+    sinonimi: ["Express €", "Express", "Espresso €", "Espresso"]
+    tipo: float
+    obbligatorio: false
+  tariffa_same_day:
+    sinonimi: ["Same Day €", "Same Day", "Same-Day"]
+    tipo: float
+    obbligatorio: false
+  supplemento_isole:
+    sinonimi: ["Supplemento Isole €", "Supplemento Isole", "Isole"]
+    tipo: float
+    obbligatorio: false
+  nazione:
+    sinonimi: ["Nazione", "Country", "Paese", "Nation"]
+    tipo: string
+    obbligatorio: false
+metadati_canonici:
+  fornitore: ["Fornitore", "Vettore", "Corriere", "Carrier"]
+  validita: ["Validità", "Validity", "Periodo"]
+  zona: ["Zona", "Zone", "Area"]

@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quoro"
+version = "0.1.0"
+description = "CLI tool to parse diverse tabular data formats (CSV/TSV/Excel) and normalize to structured JSON"
+requires-python = ">=3.11"
+dependencies = [
+    "click>=8.0",
+    "openpyxl>=3.1",
+    "pyyaml>=6.0",
+    "chardet>=5.0",
+    "openai>=1.0",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+web = [
+    "fastapi>=0.100",
+    "uvicorn[standard]>=0.20",
+    "python-multipart>=0.0.7",
+    "python-dotenv>=1.2.2",
+]
+
+[project.scripts]
+quoro = "quoro.cli:cli"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "llm: requires Ollama running (deselect with '-m not llm')",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+]

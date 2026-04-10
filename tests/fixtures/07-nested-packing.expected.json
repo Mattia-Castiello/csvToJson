@@ -1,0 +1,25 @@
+[
+  {
+    "tipo": "packing_list",
+    "delivery_note": "DL-7741",
+    "data": "2026-03-09",
+    "righe": [
+      {"order_ref": "ORD-W11-01", "codice_articolo": "ALP-843", "descrizione": "Armadio 2 ante scorrevoli", "colli": 2, "qty_per_collo": 3, "quantita_totale": 6, "peso_kg": 180.5},
+      {"order_ref": null, "codice_articolo": null, "descrizione": "Sub-item: maniglie", "colli": 2, "qty_per_collo": 3, "quantita_totale": 6, "peso_kg": 2.1},
+      {"order_ref": null, "codice_articolo": null, "descrizione": "Sub-item: ripiani", "colli": 2, "qty_per_collo": 6, "quantita_totale": 12, "peso_kg": 15.0},
+      {"order_ref": "ORD-W11-01", "codice_articolo": "ALP-574", "descrizione": "Comò 4 cassetti", "colli": 7, "qty_per_collo": 2, "quantita_totale": 14, "peso_kg": 420.0},
+      {"order_ref": "ORD-W11-02", "codice_articolo": "ALP-114", "descrizione": "Comodino", "colli": 3, "qty_per_collo": 2, "quantita_totale": 6, "peso_kg": 90.0}
+    ],
+    "_meta": {"resolver": "fallback"}
+  },
+  {
+    "tipo": "packing_list",
+    "delivery_note": "DL-4469",
+    "data": "2026-03-10",
+    "righe": [
+      {"order_ref": "ORD-W11-03", "codice_articolo": "ALP-867", "descrizione": "Scaffale 180cm", "colli": 4, "qty_per_collo": 2, "quantita_totale": 8, "peso_kg": 320.0},
+      {"order_ref": "ORD-W11-03", "codice_articolo": "ALP-507", "descrizione": "Scarpiera 3 ante", "colli": 1, "qty_per_collo": 2, "quantita_totale": 2, "peso_kg": 45.0}
+    ],
+    "_meta": {"resolver": "fallback"}
+  }
+]

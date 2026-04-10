@@ -1,0 +1,13 @@
+;Listino Prezzi Aggiornato - Marzo 2026;;
+;Fornitore: Acme Furniture S.r.l.;;
+;;;;
+Rif.;Articolo;Prezzo Listino;Prezzo Scontato;Note
+A-001;Tavolo pranzo 180cm;€ 450,00;€ 382,50;PROMO -15%
+A-002;Sedia ergonomica;;€ 189,00;prezzo listino mancante
+A-003;Libreria modulare 5 ripiani;€ 320,00;€ 320,00;
+;SOTTOTALE MOBILI;;;
+B-001;Lampada design;€ 95,00;€ 85,50;
+B-002;Tappeto 200x300;;;FUORI PRODUZIONE
+;SOTTOTALE ILLUMINAZIONE;;;
+;;;;
+;TOTALE GENERALE;€ 865,00;€ 977,00;

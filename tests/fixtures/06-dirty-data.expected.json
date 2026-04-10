@@ -1,0 +1,26 @@
+{
+  "tipo": "fattura",
+  "etichetta": "sheet1",
+  "fornitore": "Acme Furniture S.r.l.",
+  "righe": [
+    {"codice_articolo": "A-001", "descrizione": "Tavolo pranzo 180cm", "prezzo_listino": 450.0, "importo_netto": 382.5, "note": "PROMO -15%"},
+    {"codice_articolo": "A-002", "descrizione": "Sedia ergonomica", "prezzo_listino": null, "importo_netto": 189.0, "note": "prezzo listino mancante"},
+    {"codice_articolo": "A-003", "descrizione": "Libreria modulare 5 ripiani", "prezzo_listino": 320.0, "importo_netto": 320.0, "note": null},
+    {"codice_articolo": "B-001", "descrizione": "Lampada design", "prezzo_listino": 95.0, "importo_netto": 85.5, "note": null},
+    {"codice_articolo": "B-002", "descrizione": "Tappeto 200x300", "prezzo_listino": null, "importo_netto": null, "note": "FUORI PRODUZIONE"}
+  ],
+  "totale_generale": {
+    "prezzo_listino": 865.0,
+    "importo_netto": 977.0
+  },
+  "righe_senza_dati": [
+    {"descrizione": "SOTTOTALE MOBILI"},
+    {"descrizione": "SOTTOTALE ILLUMINAZIONE"}
+  ],
+  "_meta": {
+    "confidence_tipo": 1.0,
+    "resolver": "fallback",
+    "modello": null,
+    "warnings": ["righe riepilogo rilevate: 3"]
+  }
+}

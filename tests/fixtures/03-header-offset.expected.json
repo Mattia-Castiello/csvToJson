@@ -1,0 +1,15 @@
+{
+  "tipo": "ordine",
+  "fornitore": "Nordic Design AB",
+  "data_ordine": "2026-02-09",
+  "riferimento": "ORD-2026-W07",
+  "destinatario": "Casa Bella Trading SRL",
+  "righe": [
+    {"codice_articolo": "FRN-045", "finitura": "Bianco lucido", "descrizione": "Tavolo multifunzione", "quantita": 50, "prezzo_unitario": 97.09, "sconto_percentuale": 0.0},
+    {"codice_articolo": "FRN-112", "finitura": "Bianco opaco", "descrizione": "Armadio 1 anta", "quantita": 34, "prezzo_unitario": 46.14, "sconto_percentuale": 17.0},
+    {"codice_articolo": "FRN-078", "finitura": "Rovere naturale", "descrizione": "Scrivania angolare", "quantita": 22, "prezzo_unitario": 93.66, "sconto_percentuale": 15.0}
+  ],
+  "_meta": {
+    "resolver": "fallback"
+  }
+}

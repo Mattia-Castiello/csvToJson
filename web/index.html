@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quoro — Parser Documenti</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:        #2563EB;
+      --primary-hover:  #1D4ED8;
+      --primary-light:  #EFF6FF;
+      --primary-border: #BFDBFE;
+      --bg:             #F8FAFC;
+      --surface:        #FFFFFF;
+      --text:           #1E293B;
+      --text-muted:     #64748B;
+      --border:         #E2E8F0;
+      --success:        #10B981;
+      --error:          #EF4444;
+      --error-bg:       #FEF2F2;
+      --error-border:   #FECACA;
+      --radius:         12px;
+      --radius-sm:      8px;
+      --shadow:         0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04);
+      --shadow-md:      0 4px 6px rgba(0,0,0,.07), 0 2px 4px rgba(0,0,0,.06);
+      --t:              150ms ease;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      height: 60px;
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo-mark {
+      width: 32px; height: 32px;
+      background: var(--primary);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+    }
+
+    .logo-name {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+    }
+
+    .logo-sep { color: var(--border); }
+
+    .logo-tagline {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* ── Main ── */
+    main {
+      flex: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 56px 24px 64px;
+      width: 100%;
+    }
+
+    /* ── Upload section ── */
+    #upload-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 36px;
+    }
+
+    .hero {
+      text-align: center;
+      max-width: 520px;
+    }
+
+    .hero h1 {
+      font-size: clamp(22px, 4vw, 30px);
+      font-weight: 700;
+      letter-spacing: -0.6px;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* Drop zone */
+    .drop-zone {
+      width: 100%;
+      max-width: 580px;
+      background: var(--surface);
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 60px 32px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color var(--t), background var(--t), box-shadow var(--t);
+      position: relative;
+      box-shadow: var(--shadow);
+    }
+
+    .drop-zone:hover,
+    .drop-zone.drag-over {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      box-shadow: 0 0 0 4px var(--primary-border);
+    }
+
+    .drop-zone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    .drop-icon {
+      width: 52px; height: 52px;
+      margin: 0 auto 18px;
+      color: var(--text-muted);
+      transition: color var(--t);
+    }
+
+    .drop-zone:hover .drop-icon,
+    .drop-zone.drag-over .drop-icon {
+      color: var(--primary);
+    }
+
+    .drop-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .drop-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 22px;
+    }
+
+    .drop-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 11px 22px;
+      font-size: 14px;
+      font-weight: 500;
+      pointer-events: none; /* il click va all'input sottostante */
+      font-family: inherit;
+      transition: background var(--t);
+    }
+
+    .drop-zone:hover .drop-cta { background: var(--primary-hover); }
+
+    .format-tags {
+      margin-top: 18px;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 9px;
+      border-radius: 4px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      letter-spacing: 0.4px;
+    }
+
+    /* Error banner */
+    .error-banner {
+      display: none;
+      width: 100%;
+      max-width: 580px;
+      background: var(--error-bg);
+      border: 1px solid var(--error-border);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .error-banner.visible { display: flex; }
+
+    .error-icon { color: var(--error); flex-shrink: 0; margin-top: 1px; }
+
+    .error-body h3 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--error);
+      margin-bottom: 3px;
+    }
+
+    .error-body p {
+      font-size: 13px;
+      color: #B91C1C;
+      line-height: 1.5;
+    }
+
+    /* ── Processing section ── */
+    #processing-section {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+      padding: 100px 0;
+    }
+
+    .spinner {
+      width: 44px; height: 44px;
+      border: 3px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .proc-text { text-align: center; }
+    .proc-text h2 { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+    .proc-text p  { font-size: 14px; color: var(--text-muted); }
+
+    /* ── Result section ── */
+    #result-section {
+      display: none;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .result-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .file-chip {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .file-chip-icon {
+      width: 38px; height: 38px;
+      background: var(--success);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .file-chip-name {
+      font-size: 15px;
+      font-weight: 600;
+      word-break: break-all;
+    }
+
+    .file-chip-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border-radius: var(--radius-sm);
+      padding: 9px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--t);
+      font-family: inherit;
+      border: none;
+      min-height: 38px;
+      white-space: nowrap;
+    }
+
+    .btn:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { background: var(--bg); color: var(--text); border-color: #CBD5E1; }
+
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-hover); }
+
+    /* ── JSON Viewer ── */
+    .viewer {
+      background: #0F172A;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+
+    .viewer-toolbar {
+      background: #1E293B;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .viewer-dots {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 11px; height: 11px;
+      border-radius: 50%;
+    }
+
+    .viewer-lang {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #475569;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-left: 10px;
+    }
+
+    .btn-copy {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255,255,255,.06);
+      color: #94A3B8;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 6px;
+      padding: 5px 11px;
+      font-size: 12px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all var(--t);
+    }
+
+    .btn-copy:hover { background: rgba(255,255,255,.1); color: #CBD5E1; }
+    .btn-copy.copied { color: #34D399; border-color: rgba(52,211,153,.3); }
+
+    .viewer-body {
+      padding: 20px 24px;
+      overflow: auto;
+      max-height: 520px;
+    }
+
+    .viewer-body pre {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 13px;
+      line-height: 1.75;
+      color: #CBD5E1;
+      white-space: pre;
+      tab-size: 2;
+    }
+
+    /* Syntax colors */
+    .jk { color: #93C5FD; } /* key   → blue-300  */
+    .js { color: #86EFAC; } /* string → green-300 */
+    .jn { color: #FB923C; } /* number → orange-400*/
+    .jb { color: #C084FC; } /* bool  → purple-400 */
+    .jz { color: #94A3B8; } /* null  → slate-400  */
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      main { padding: 36px 16px 48px; }
+      .hero h1 { font-size: 22px; }
+      .drop-zone { padding: 44px 20px; }
+      .result-bar { flex-direction: column; align-items: flex-start; }
+      .actions { width: 100%; }
+      .btn { flex: 1; justify-content: center; }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .spinner { animation: none; border-color: var(--primary); }
+      *, *::before, *::after { transition-duration: 0ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo-mark">Q</div>
+  <span class="logo-name">quoro</span>
+  <span class="logo-sep">·</span>
+  <span class="logo-tagline">parser documenti tabellari</span>
+</header>
+
+<main>
+
+  <!-- ── Upload ── -->
+  <section id="upload-section">
+
+    <div class="hero">
+      <h1>Converti documenti in JSON strutturato</h1>
+      <p>Carica un file CSV, Excel o TSV e ottieni dati normalizzati,<br>pronti per qualsiasi integrazione.</p>
+    </div>
+
+    <div class="drop-zone" id="drop-zone" role="button" tabindex="0"
+         aria-label="Zona di caricamento — trascina un file o premi Invio per sceglierlo">
+      <input type="file" id="file-input" accept=".csv,.tsv,.xlsx,.xls"
+             aria-label="Seleziona file da analizzare">
+
+      <!-- Cloud upload icon -->
+      <svg class="drop-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M32 32L24 24L16 32"/>
+        <path d="M24 24V44"/>
+        <path d="M40.4 36.4A10 10 0 0 0 34 20h-2.3A16 16 0 1 0 8 36.4"/>
+      </svg>
+
+      <div class="drop-title">Trascina il file qui</div>
+      <div class="drop-subtitle">oppure clicca per sceglierlo dal tuo computer</div>
+
+      <div class="drop-cta" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+        Scegli file
+      </div>
+
+      <div class="format-tags" aria-label="Formati supportati">
+        <span class="tag">CSV</span>
+        <span class="tag">TSV</span>
+        <span class="tag">XLSX</span>
+        <span class="tag">XLS</span>
+      </div>
+    </div>
+
+    <div id="error-banner" class="error-banner" role="alert" aria-live="assertive">
+      <svg class="error-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <div class="error-body">
+        <h3>Errore durante la conversione</h3>
+        <p id="error-msg"></p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── Processing ── -->
+  <section id="processing-section" aria-live="polite">
+    <div class="spinner" role="status" aria-label="Elaborazione in corso"></div>
+    <div class="proc-text">
+      <h2>Analisi in corso…</h2>
+      <p id="proc-filename"></p>
+    </div>
+  </section>
+
+  <!-- ── Result ── -->
+  <section id="result-section">
+
+    <div class="result-bar">
+      <div class="file-chip">
+        <div class="file-chip-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <div>
+          <div class="file-chip-name" id="res-filename"></div>
+          <div class="file-chip-meta" id="res-meta"></div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-ghost" id="btn-new">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+            <path d="M21 3v5h-5"/>
+          </svg>
+          Nuovo file
+        </button>
+        <button class="btn btn-primary" id="btn-download">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Scarica JSON
+        </button>
+      </div>
+    </div>
+
+    <!-- JSON viewer -->
+    <div class="viewer">
+      <div class="viewer-toolbar">
+        <div style="display:flex;align-items:center;gap:6px">
+          <div class="viewer-dots">
+            <div class="dot" style="background:#FF5F57" aria-hidden="true"></div>
+            <div class="dot" style="background:#FEBC2E" aria-hidden="true"></div>
+            <div class="dot" style="background:#28C840" aria-hidden="true"></div>
+          </div>
+          <span class="viewer-lang">JSON</span>
+        </div>
+        <button class="btn-copy" id="btn-copy" aria-label="Copia JSON negli appunti">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" aria-hidden="true">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+          <span id="copy-label">Copia</span>
+        </button>
+      </div>
+      <div class="viewer-body">
+        <pre id="json-out" aria-label="Risultato JSON"></pre>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<script>
+  'use strict';
+
+  // ── Elements ──
+  const $ = id => document.getElementById(id);
+  const uploadSec    = $('upload-section');
+  const procSec      = $('processing-section');
+  const resultSec    = $('result-section');
+  const fileInput    = $('file-input');
+  const dropZone     = $('drop-zone');
+  const errorBanner  = $('error-banner');
+  const errorMsg     = $('error-msg');
+  const procFilename = $('proc-filename');
+  const resFilename  = $('res-filename');
+  const resMeta      = $('res-meta');
+  const jsonOut      = $('json-out');
+  const btnNew       = $('btn-new');
+  const btnDownload  = $('btn-download');
+  const btnCopy      = $('btn-copy');
+  const copyLabel    = $('copy-label');
+
+  // ── State ──
+  let currentJson = '';
+  let currentFilename = '';
+
+  // ── JSON syntax highlighter ──
+  function highlight(json) {
+    return json
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(
+        /("(?:\\u[0-9a-fA-F]{4}|\\[^u]|[^\\"])*"(?:\s*:)?|\b(?:true|false)\b|\bnull\b|-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)/g,
+        m => {
+          if (/^"/.test(m))   return m.endsWith(':') ? `<span class="jk">${m}</span>` : `<span class="js">${m}</span>`;
+          if (/true|false/.test(m)) return `<span class="jb">${m}</span>`;
+          if (m === 'null')   return `<span class="jz">${m}</span>`;
+          return `<span class="jn">${m}</span>`;
+        }
+      );
+  }
+
+  // ── View transitions ──
+  function show(sec) {
+    uploadSec.style.display  = sec === 'upload'  ? 'flex'  : 'none';
+    procSec.style.display    = sec === 'proc'    ? 'flex'  : 'none';
+    resultSec.style.display  = sec === 'result'  ? 'flex'  : 'none';
+  }
+
+  function showError(msg) {
+    errorBanner.classList.add('visible');
+    errorMsg.textContent = msg;
+    show('upload');
+    fileInput.value = '';
+  }
+
+  function hideError() {
+    errorBanner.classList.remove('visible');
+  }
+
+  // ── Meta helper ──
+  function buildMeta(data) {
+    const parts = ['Conversione completata'];
+    if (Array.isArray(data)) {
+      parts.push(`${data.length} ${data.length === 1 ? 'documento' : 'documenti'}`);
+    } else if (data && typeof data === 'object') {
+      const n = Object.keys(data).length;
+      parts.push(`${n} ${n === 1 ? 'campo' : 'campi'}`);
+    }
+    return parts.join(' · ');
+  }
+
+  // ── File upload pipeline ──
+  async function process(file) {
+    hideError();
+    currentFilename = file.name;
+    procFilename.textContent = file.name;
+    show('proc');
+
+    const body = new FormData();
+    body.append('file', file);
+
+    try {
+      const res = await fetch('/parse', { method: 'POST', body });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ detail: `HTTP ${res.status}` }));
+        throw new Error(err.detail || `HTTP ${res.status}`);
+      }
+
+      const data = await res.json();
+      currentJson = JSON.stringify(data, null, 2);
+
+      resFilename.textContent = file.name;
+      resMeta.textContent     = buildMeta(data);
+      jsonOut.innerHTML       = highlight(currentJson);
+      show('result');
+
+    } catch (err) {
+      showError(err.message);
+    }
+  }
+
+  // ── Drag & drop ──
+  dropZone.addEventListener('dragover', e => {
+    e.preventDefault();
+    dropZone.classList.add('drag-over');
+  });
+
+  dropZone.addEventListener('dragleave', e => {
+    if (!dropZone.contains(e.relatedTarget)) dropZone.classList.remove('drag-over');
+  });
+
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('drag-over');
+    const f = e.dataTransfer?.files[0];
+    if (f) process(f);
+  });
+
+  // ── Keyboard activation for drop zone ──
+  dropZone.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); }
+  });
+
+  // ── File input ──
+  fileInput.addEventListener('change', () => {
+    const f = fileInput.files?.[0];
+    if (f) process(f);
+  });
+
+  // ── New file ──
+  btnNew.addEventListener('click', () => {
+    currentJson = '';
+    fileInput.value = '';
+    show('upload');
+  });
+
+  // ── Download ──
+  btnDownload.addEventListener('click', () => {
+    if (!currentJson) return;
+    const blob = new Blob([currentJson], { type: 'application/json' });
+    const url  = URL.createObjectURL(blob);
+    const a    = Object.assign(document.createElement('a'), {
+      href: url,
+      download: currentFilename.replace(/\.[^.]+$/, '') + '.json',
+    });
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  // ── Copy ──
+  btnCopy.addEventListener('click', async () => {
+    if (!currentJson) return;
+    try {
+      await navigator.clipboard.writeText(currentJson);
+    } catch {
+      // Fallback: select all text
+      const range = document.createRange();
+      range.selectNodeContents(jsonOut);
+      const sel = window.getSelection();
+      sel?.removeAllRanges();
+      sel?.addRange(range);
+      return;
+    }
+    btnCopy.classList.add('copied');
+    copyLabel.textContent = 'Copiato!';
+    setTimeout(() => {
+      btnCopy.classList.remove('copied');
+      copyLabel.textContent = 'Copia';
+    }, 2000);
+  });
+</script>
+</body>
+</html>

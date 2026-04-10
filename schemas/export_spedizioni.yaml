@@ -1,0 +1,62 @@
+tipo: export_spedizioni
+campi:
+  anno:
+    sinonimi: ["ANNO_SPED", "Anno", "Year"]
+    tipo: integer
+    obbligatorio: false
+  numero_spedizione:
+    sinonimi: ["NUM_SPED", "Numero Spedizione", "Spedizione N.", "Tracking"]
+    tipo: string
+    obbligatorio: true
+  data_spedizione:
+    sinonimi: ["DATA_SPED", "Data Spedizione", "Data", "Date"]
+    tipo: date
+    obbligatorio: true
+  mittente:
+    sinonimi: ["MITTENTE", "Mittente", "Sender", "Shipper"]
+    tipo: string
+    obbligatorio: false
+  citta_mittente:
+    sinonimi: ["CITTA_MITT", "Città Mittente", "Città Mit."]
+    tipo: string
+    obbligatorio: false
+  destinatario:
+    sinonimi: ["DESTINATARIO", "Destinatario", "Recipient", "Receiver"]
+    tipo: string
+    obbligatorio: false
+  citta_destinatario:
+    sinonimi: ["CITTA_DEST", "Città Destinatario", "Città Dest."]
+    tipo: string
+    obbligatorio: false
+  nazione:
+    sinonimi: ["NAZIONE", "Nazione", "Country", "Paese"]
+    tipo: string
+    obbligatorio: false
+  colli:
+    sinonimi: ["N_COLLI", "Colli", "Boxes", "Pezzi"]
+    tipo: integer
+    obbligatorio: false
+  peso_kg:
+    sinonimi: ["PESO_KG", "Peso Kg", "Peso", "Weight"]
+    tipo: float
+    obbligatorio: false
+  tipo_servizio:
+    sinonimi: ["TIPO_SERVIZIO", "Servizio", "Service", "Service Type"]
+    tipo: string
+    obbligatorio: false
+  riferimento_cliente:
+    sinonimi: ["RIF_CLIENTE", "Riferimento Cliente", "Order Ref", "Rif. Cliente"]
+    tipo: string
+    obbligatorio: false
+  totale:
+    sinonimi: ["TOTALE", "Totale", "Total", "Importo Totale"]
+    tipo: float
+    obbligatorio: false
+  stato:
+    sinonimi: ["STATO", "Stato", "Status"]
+    tipo: string
+    obbligatorio: false
+metadati_canonici:
+  periodo: ["PERIODO", "Periodo", "Period"]
+  data_export: ["DATA EXPORT", "Data Export", "Export Date"]
+  utente: ["UTENTE", "Utente", "User"]

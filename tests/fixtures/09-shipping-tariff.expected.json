@@ -1,0 +1,10 @@
+[
+  {
+    "tipo": "tariffario",
+    "righe": [
+      {"peso_min_kg": 0.5, "peso_max_kg": 1.0, "tariffa_standard": 4.9, "tariffa_express": 7.5, "tariffa_same_day": 14.9, "supplemento_isole": 2.5},
+      {"peso_min_kg": 1.1, "peso_max_kg": 3.0, "tariffa_standard": 5.9, "tariffa_express": 8.9, "tariffa_same_day": 16.9, "supplemento_isole": 3.0}
+    ],
+    "_meta": {"resolver": "fallback"}
+  }
+]

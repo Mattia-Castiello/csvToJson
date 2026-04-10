@@ -1,0 +1,20 @@
+[
+  {
+    "tipo": "ordine",
+    "righe": [
+      {"codice_articolo": "FRN-001", "quantita": 2},
+      {"codice_articolo": "FRN-045", "quantita": 50},
+      {"codice_articolo": "FRN-046", "quantita": 120}
+    ],
+    "_meta": {"resolver": "fallback"}
+  },
+  {
+    "tipo": "ordine",
+    "righe": [
+      {"codice_articolo": "ALP-843", "quantita": 4},
+      {"codice_articolo": "ALP-574", "quantita": 14},
+      {"codice_articolo": "ALP-114", "quantita": 6}
+    ],
+    "_meta": {"resolver": "fallback"}
+  }
+]

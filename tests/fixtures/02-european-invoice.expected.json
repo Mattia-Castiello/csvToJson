@@ -1,0 +1,12 @@
+{
+  "tipo": "fattura",
+  "righe": [
+    {"codice_articolo": "FRN-001", "descrizione": "Tavolo estensibile 90x51", "quantita": 50, "prezzo_listino": 97.09, "sconto_percentuale": 10.0, "importo_netto": 4369.05},
+    {"codice_articolo": "FRN-002", "descrizione": "Armadio 1 anta bianco", "quantita": 34, "prezzo_listino": 46.14, "sconto_percentuale": 17.0, "importo_netto": 1301.30},
+    {"codice_articolo": "FRN-003", "descrizione": "Scrivania reversibile", "quantita": 22, "prezzo_listino": 93.66, "sconto_percentuale": 15.0, "importo_netto": 1750.43},
+    {"codice_articolo": "FRN-004", "descrizione": "Cassettiera 60cm 3 cassetti", "quantita": 22, "prezzo_listino": 37.96, "sconto_percentuale": 12.0, "importo_netto": 734.87}
+  ],
+  "_meta": {
+    "resolver": "fallback"
+  }
+}

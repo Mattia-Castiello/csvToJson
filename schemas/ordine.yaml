@@ -1,0 +1,35 @@
+tipo: ordine
+campi:
+  codice_articolo:
+    sinonimi: ["Codice", "Cod. Art.", "ITEM", "Rif.", "Art.", "Item Code", "CODICE", "Cod"]
+    tipo: string
+    obbligatorio: true
+  quantita:
+    sinonimi: ["Quantità", "Qtà", "Qty", "QUANTITY", "N_COLLI", "Qty per Box", "QUANTITA", "Qta"]
+    tipo: integer
+    obbligatorio: true
+  finitura:
+    sinonimi: ["Finitura", "Finish", "Colore", "Color"]
+    tipo: string
+    obbligatorio: false
+  descrizione:
+    sinonimi: ["Descrizione", "Description", "Desc", "Articolo", "ARTICOLO", "Prodotto"]
+    tipo: string
+    obbligatorio: false
+  prezzo_unitario:
+    sinonimi: ["Prezzo", "Prezzo Unit.", "Prezzo Unitario", "Price", "PREZZO"]
+    tipo: float
+    obbligatorio: false
+  sconto_percentuale:
+    sinonimi: ["Sconto", "Sconto %", "Discount", "SCONTO"]
+    tipo: float
+    obbligatorio: false
+  importo_netto:
+    sinonimi: ["Importo Netto", "Importo", "Net Amount", "IMPORTO"]
+    tipo: float
+    obbligatorio: false
+metadati_canonici:
+  fornitore: ["Fornitore", "Supplier", "Mittente", "MITTENTE", "Vendor"]
+  data_ordine: ["Data", "Data ordine", "DATA_SPED", "Date", "DATA"]
+  riferimento: ["Riferimento", "Rif.", "RIF_CLIENTE", "Order Ref", "RIFERIMENTO"]
+  destinatario: ["Destinatario", "Cliente", "DESTINATARIO", "Customer"]

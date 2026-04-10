@@ -1,0 +1,13 @@
+{
+  "tipo": "ordine",
+  "righe": [
+    {"codice_articolo": "FRN-001", "quantita": 2},
+    {"codice_articolo": "FRN-045", "quantita": 50},
+    {"codice_articolo": "FRN-046", "quantita": 120},
+    {"codice_articolo": "FRN-112", "quantita": 34},
+    {"codice_articolo": "NRD-603", "quantita": 22}
+  ],
+  "_meta": {
+    "resolver": "fallback"
+  }
+}
