@@ -13,5 +13,4 @@ venv/
 .vscode/
 .pytest_cache/
 .ruff_cache/
-quoro/
 .DS_Store
